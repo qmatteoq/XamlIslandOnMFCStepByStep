@@ -143,16 +143,38 @@ int CXamlIslandOnMFCAppView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	::SetWindowPos(xamlIslandHwnd, NULL, 10, 10, 510, 510, SWP_SHOWWINDOW); // resize the island to { x:10, y:10, width: 500(510 is cx), height:500(510 is cy) }.
 
 	// Build UI using UWP controls.
-	winrt::Windows::UI::Xaml::Controls::Grid root;
-	winrt::Windows::UI::Xaml::Controls::TextBlock textBlock;
-	textBlock.Text(L"Hello from XAML Island");
-	textBlock.HorizontalAlignment(winrt::Windows::UI::Xaml::HorizontalAlignment::Center);
-	textBlock.VerticalAlignment(winrt::Windows::UI::Xaml::VerticalAlignment::Center);
-	root.Children().Append(textBlock);
-	root.Measure(winrt::Windows::Foundation::Size{ 500, 500 });
-	root.UpdateLayout();
+	winrt::Windows::UI::Xaml::Controls::Grid grid;
+	winrt::Windows::UI::Xaml::ResourceDictionary resourceDictionary;
+	resourceDictionary.MergedDictionaries().Append(winrt::Microsoft::UI::Xaml::Controls::XamlControlsResources{});
+	grid.Resources(resourceDictionary);
+	winrt::Microsoft::UI::Xaml::Controls::TreeView tv;
+	winrt::Microsoft::UI::Xaml::Controls::TreeViewNode rootNode;
+	rootNode.Content(winrt::box_value(L"Children 1"));
+	winrt::Microsoft::UI::Xaml::Controls::TreeViewNode children1;
+	children1.Content(winrt::box_value(L"Children 1"));
+	winrt::Microsoft::UI::Xaml::Controls::TreeViewNode children2;
+	children2.Content(winrt::box_value(L"Children 1"));
+	winrt::Microsoft::UI::Xaml::Controls::TreeViewNode children3;
+	children3.Content(winrt::box_value(L"Children 1"));
+	rootNode.Children().Append(children1);
+	rootNode.Children().Append(children2);
+	rootNode.Children().Append(children3);
+	tv.RootNodes().Append(rootNode);
+	grid.Children().Append(tv);
+	grid.Measure(winrt::Windows::Foundation::Size{ 500, 500 });
+	grid.UpdateLayout();
+	desktopSource.Content(grid);
+
+	//winrt::Windows::UI::Xaml::Controls::Grid root;
+	//winrt::Windows::UI::Xaml::Controls::TextBlock textBlock;
+	//textBlock.Text(L"Hello from XAML Island");
+	//textBlock.HorizontalAlignment(winrt::Windows::UI::Xaml::HorizontalAlignment::Center);
+	//textBlock.VerticalAlignment(winrt::Windows::UI::Xaml::VerticalAlignment::Center);
+	//root.Children().Append(textBlock);
+	//root.Measure(winrt::Windows::Foundation::Size{ 500, 500 });
+	//root.UpdateLayout();
 	// set control to the island
-	desktopSource.Content(root);
+	//desktopSource.Content(root);
 	return 0;
 }
 

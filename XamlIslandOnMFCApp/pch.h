@@ -18,6 +18,9 @@
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Hosting.h>
 #include <windows.ui.xaml.hosting.desktopwindowxamlsource.h>
+
+// WinUI
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
 #pragma pop_macro("TRY")
 
 
