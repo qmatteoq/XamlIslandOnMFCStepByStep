@@ -78,15 +78,30 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
+  </PropertyGroup>
+  <!-- Configure these for your main App project -->
+  <PropertyGroup>
+    <AppProjectName>MyApp</AppProjectName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AppIncludeDirectories>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(AppProjectName)\;$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(AppProjectName)\Generated Files\;</AppIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,6 +153,9 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <Manifest>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -267,6 +285,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </NativeReferenceFile>
     <NativeReferenceFile Include="$(SolutionDir)\$(Configuration)\$(AppProjectName)\*.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </NativeReferenceFile>
+    <NativeReferenceFile Include="$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(AppProjectName)\*.xbf">
+      <DeploymentContent>true</DeploymentContent>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </NativeReferenceFile>
+    <NativeReferenceFile Include="$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(AppProjectName)\*.dll">
+      <DeploymentContent>true</DeploymentContent>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </NativeReferenceFile>
+    <NativeReferenceFile Include="$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(AppProjectName)\resources.pri">
       <DeploymentContent>true</DeploymentContent>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </NativeReferenceFile>
